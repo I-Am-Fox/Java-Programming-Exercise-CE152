@@ -9,6 +9,7 @@ class BroadleafTree extends Tree {
     public String getSegment(int segmentIndex) {
         if (segmentIndex == 0) {
             return " ^ ";
+
         } else if (segmentIndex % 2 == 1) {
             return "|/ ";
         } else {
