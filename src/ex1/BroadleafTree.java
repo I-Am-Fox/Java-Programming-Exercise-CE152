@@ -1,12 +1,19 @@
 package ex1;
 
-public class BroadleafTree extends Tree{
-    BroadleafTree(int height) {
+class BroadleafTree extends Tree {
+    public BroadleafTree(int height) {
         super(height);
     }
 
-     @Override
-    String getSegment(int i) {
-        return "|/\n\\|";
+    @Override
+    public String getSegment(int segmentIndex) {
+        if (segmentIndex == 0) {
+            return " ^ ";
+
+        } else if (segmentIndex % 2 == 1) {
+            return "|/ ";
+        } else {
+            return "\\| ";
+        }
     }
 }

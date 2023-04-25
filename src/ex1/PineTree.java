@@ -6,7 +6,11 @@ class PineTree extends Tree {
     }
 
     @Override
-    String getSegment(int i) {
-        return "/|\\";
+    public String getSegment(int segmentIndex) {
+        if (segmentIndex == 0) {
+            return " ^ ";
+        } else {
+            return "/|\\";
+        }
     }
 }

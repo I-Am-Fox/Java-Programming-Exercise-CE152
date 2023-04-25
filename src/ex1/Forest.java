@@ -1,62 +1,92 @@
 package ex1;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 class Forest {
-    private int numberOfTrees;  //Defines the number of trees in the forest.
-    private int maxSize;        //Defines the maximum size of the trees.
-    private Tree[] trees;       //Defines an array to hold the trees.
+    private List<Tree> trees;
+    private char[][] forestArray;
+    private int maxTreeHeight;
 
-    //Chooses a random height for each tree.
-    //Chooses a random tree type through a switch case defined to 3.
-    Forest(int numberOfTrees, int maxSize) {
-        this.numberOfTrees = numberOfTrees;
-        this.maxSize = maxSize;
-        trees = new Tree[numberOfTrees];
-        Random rand = new Random();
+    // Constructor
+    public Forest(int numberOfTrees, int maxSize) {
+        trees = new ArrayList<>();
+        Random random = new Random();
+
+        // Create random trees and add them to the trees list
         for (int i = 0; i < numberOfTrees; i++) {
-            // choose a random height for each tree
-            int height = rand.nextInt(maxSize) + 1;
-            int treeType = rand.nextInt(3);
+            int height = random.nextInt(maxSize) + 1;
+            int treeType = random.nextInt(3);
+
             switch (treeType) {
-                case 0 -> trees[i] = new Bamboo(height);
-                case 1 -> trees[i] = new BroadleafTree(height);
-                case 2 -> trees[i] = new PineTree(height);
+                case 0:
+                    trees.add(new Bamboo(height));
+                    break;
+                case 1:
+                    trees.add(new BroadleafTree(height));
+                    break;
+                case 2:
+                    trees.add(new PineTree(height));
+                    break;
             }
+        }
+
+        // Find the maximum tree height in the forest
+        maxTreeHeight = trees.stream().mapToInt(Tree::getHeight).max().orElse(0);
+
+        // Calculate the total width of the forest
+        int totalWidth = trees.stream().mapToInt(tree -> tree.getSegment(1).length()).sum();
+
+        // Create a 2D array to store the forest structure
+        forestArray = new char[maxTreeHeight][totalWidth];
+
+        // Fill the forest array with tree segments
+        fillForestArray();
+    }
+
+    // Fill the 2D forest array with tree segments
+    private void fillForestArray() {
+        int currentWidth = 0;
+
+        for (Tree tree : trees) {
+            int treeHeight = tree.getHeight();
+            for (int i = 0; i < maxTreeHeight; i++) {
+                String segment;
+                int treeSegmentIndex = i - (maxTreeHeight - treeHeight);
+
+                // If the current row index is within the tree's height, get the corresponding segment
+                if (treeSegmentIndex >= 0) {
+                    segment = tree.getSegment(treeSegmentIndex);
+                } else {
+                    // Otherwise, fill the row with spaces
+                    segment = " ".repeat(tree.getSegment(1).length());
+                }
+
+                // Copy the segment characters to the forestArray
+                for (int j = 0; j < segment.length(); j++) {
+                    forestArray[i][currentWidth + j] = segment.charAt(j);
+                }
+            }
+
+            // Move to the next tree's starting width
+            currentWidth += tree.getSegment(1).length();
         }
     }
 
-    //Method to return a string representaiton of the forest.
-
+    // Override the toString method to print the forest
     @Override
     public String toString() {
-        // Create a StringBuilder to store the output
-        StringBuilder sb = new StringBuilder();
+        StringBuilder forestString = new StringBuilder();
 
-        // Find the length of the longest segment among all trees in the forest
-        int maxLength = 0;
-        for (Tree tree : trees) {
-            String[] segments = tree.toString().split("\n");
-            for (String segment : segments) {
-                maxLength = Math.max(maxLength, segment.length());
+        // Iterate through the forestArray and append its characters to the forestString
+        for (int i = 0; i < maxTreeHeight; i++) {
+            for (int j = 0; j < forestArray[i].length; j++) {
+                forestString.append(forestArray[i][j]);
             }
+            forestString.append('\n');
         }
 
-        // Append each segment of each tree to the StringBuilder, along with padding to center the segment
-        for (Tree tree : trees) {
-            String[] segments = tree.toString().split("\n");
-            for (String segment : segments) {
-                int padding = (maxLength - segment.length()) / 2;
-                for (int i = 0; i < padding; i++) {
-                    sb.append(" ");
-                }
-                sb.append(segment).append("\n");
-            }
-        }
-
-        // Return the output as a string
-        return sb.toString();
+        return forestString.toString();
     }
-
-
 }
