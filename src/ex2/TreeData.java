@@ -14,17 +14,14 @@ public class TreeData {
         trees = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
-            // Read each line of the file
             while ((line = reader.readLine()) != null) {
-                // Split the line into tokens
                 String[] tokens = line.split(",");
-                // Extract the tree location, name, age, and height from the tokens
-                String location = tokens[0];
-                String name = tokens[1];
-                int age = Integer.parseInt(tokens[2]);
-                int height = Integer.parseInt(tokens[3]);
-                // Create a new Tree object with the extracted data and add it to the trees list
-                Tree tree = new Tree(location, name, age, height);
+                String objectId = tokens[0];
+                String borough = tokens[1];
+                String name = tokens[2];
+                String ageGroup = tokens[3];
+                double height = Double.parseDouble(tokens[4]);
+                Tree tree = new Tree(objectId, borough, name, ageGroup, height);
                 trees.add(tree);
             }
         } catch (IOException e) {
@@ -67,6 +64,7 @@ public class TreeData {
         }
     }
 
+    //Creates a list of the trees
     public List<Tree> getTrees() {
         return trees;
     }

@@ -1,47 +1,37 @@
 package ex2;
 
 public class Tree {
-    private String location;
+    private String objectId;
+    private String borough;
     private String name;
-    private int age;
-    private int height;
+    private String ageGroup;
+    private double height;
 
-    public Tree(String location, String name, int age, int height) {
-        this.location = location;
+    public Tree(String objectId, String borough, String name, String ageGroup, double height) {
+        this.objectId = objectId;
+        this.borough = borough;
         this.name = name;
-        this.age = age;
+        this.ageGroup = ageGroup;
         this.height = height;
     }
 
-    public String getLocation() {
-        return location;
+    public String getObjectId() {
+        return objectId;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public String getBorough() {
+        return borough;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getAgeGroup() {
+        return ageGroup;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public int getHeight() {
+    public double getHeight() {
         return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
     }
 }
