@@ -1,75 +1,59 @@
 package ex2;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class TreeData {
-
+    private String filename;
     private List<Tree> trees;
-    private Map<String, Integer> treesPerBorough;
 
-    public TreeData(String fileName) {
+    // Constructor to initialize TreeData object with dataset filename
+    public TreeData(String filename) {
+        this.filename = filename;
         trees = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] tokens = line.split(",");
-                String objectId = tokens[0];
-                String borough = tokens[1];
-                String name = tokens[2];
-                String ageGroup = tokens[3];
-                double height = Double.parseDouble(tokens[4]);
-                Tree tree = new Tree(objectId, borough, name, ageGroup, height);
-                trees.add(tree);
-            }
-        } catch (IOException e) {
-            System.err.println("Error reading file: " + e.getMessage());
-        }
+        // Read the data from the file here (Step 5)
+        //Read the file and populate the 'trees' list
     }
 
-        /**
-         * Prints the number of trees per borough.
-         */
+    // Method to print the number of trees per borough (Step 6)
     public void printTreesPerBorough() {
-        // Create a map to store the number of trees per borough
-        Map<String, Integer> treesPerBorough = new HashMap<>();
-        for (Tree tree : trees) {
-            // Increment the tree count for the current tree's borough
-            treesPerBorough.put(tree.getLocation(), treesPerBorough.getOrDefault(tree.getLocation(), 0) + 1);
-        }
-        // Print the number of trees per borough
+        //Calculate the number of trees per borough
+        Map<String, Integer> treesPerBorough = null; // Replace 'null' with the actual implementation
+        System.out.println("Number of trees per borough:");
         for (Map.Entry<String, Integer> entry : treesPerBorough.entrySet()) {
-            System.out.println("Borough: " + entry.getKey() + ", Trees: " + entry.getValue());
+            System.out.println(entry.getKey() + ": " + entry.getValue());
         }
     }
 
+    // Method to print the most common age category of trees (Step 7)
     public void printMostCommonAge() {
-        // Create a map to store the number of trees for each age
-        Map<Integer, Integer> ageCounts = new HashMap<>();
-        int mostCommonAge = 0;
-        int mostCommonAgeCount = 0;
+        //Calculate the most common age category of trees
+        int mostCommonAge = 0; // Replace '0' with the actual implementation
+        System.out.println("Most common tree age: " + mostCommonAge);
+    }
 
-        // Count the number of trees for each age and determine the most common age
-        for (Tree tree : trees) {
-            int age = tree.getAge();
-            ageCounts.put(age, ageCounts.getOrDefault(age, 0) + 1);
+    // Method to print the least common age category of trees (Step 8)
+    public void printLeastCommonAge() {
+        //Calculate the least common age category of trees
+        int leastCommonAge = 0; // Replace '0' with the actual implementation
+        System.out.println("Least common tree age: " + leastCommonAge);
+    }
 
-            int count = ageCounts.get(age);
-            if (count > mostCommonAgeCount) {
-                mostCommonAgeCount = count;
-                mostCommonAge = age;
-            }
+    // Method to print the average height of trees for each unique name (Step 9)
+    public void printAverageHeightPerTreeName() {
+        //Calculate the average height of trees for each unique name
+        Map<String, Double> averageHeightPerTreeName = null; // Replace 'null' with the actual implementation
+        System.out.println("Average height per tree name:");
+        for (Map.Entry<String, Double> entry : averageHeightPerTreeName.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
         }
     }
 
-    //Creates a list of the trees
-    public List<Tree> getTrees() {
-        return trees;
+    // Method to print the average height for a specific tree name (Step 10)
+    public void printAverageHeightForTree(String treeName) {
+        //Calculate the average height for the specified tree name
+        double averageHeight = 0.0; // Replace '0.0' with the actual implementation
+        System.out.println("Average height for " + treeName + ": " + averageHeight);
     }
-
 }
-
-
-

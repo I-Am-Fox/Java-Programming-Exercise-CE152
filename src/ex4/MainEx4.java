@@ -9,7 +9,7 @@ public class MainEx4 {
     public static void main(String[] args) {
         try {
             // read the tree price data from the CSV file
-            TreePriceData treePriceData = new TreePriceData("treePrices.csv");
+            TreePriceData treePriceData = new TreePriceData("C:\\Users\\Josh\\IdeaProjects\\Java-Programming-Exercise-CE152\\src\\treePrices.csv");
 
             // create a new JFrame to display the plot
             JFrame frame = new JFrame("Tree Prices");
